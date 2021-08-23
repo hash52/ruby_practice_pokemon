@@ -1,15 +1,26 @@
 require './pokemon'
+require './type'
 
-pikachu = Pokemon.new("ピカチュウ",100,30)
-pikachu.display_status
+hitokage = Pokemon.new("ヒトカゲ",Type::FIRE,100,30)
+hitokage.display_status
 
-parukia = Pokemon.new("パルキア",500,200)
-parukia.display_status
+zenigame = Pokemon.new("ゼニガメ",Type::WATER,100,30)
+zenigame.display_status
 
-pikachu.attack parukia
-parukia.display_status
+fushigidane = Pokemon.new("フシギダネ",Type::GRASS,100,30)
+fushigidane.display_status
 
-parukia.attack pikachu
-pikachu.display_status
+pippi = Pokemon.new("ピッピ",Type::NORMAL,100,30)
+pippi.display_status
 
-pichu = Pokemon.new("pichu",500,200)
+hitokage.attack zenigame
+zenigame.display_status
+
+zenigame.attack hitokage
+hitokage.display_status
+
+fushigidane.attack hitokage
+hitokage.display_status
+
+zenigame.attack hitokage
+hitokage.display_status
