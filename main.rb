@@ -7,16 +7,16 @@ t = Thread.new do
 end
 
 
-hitokage = Pokemon.new("ヒトカゲ",Type::FIRE,100,30)
+hitokage = Pokemon.new(name: "ヒトカゲ", type: Type::FIRE, hp: 100, atk: 30)
 hitokage.display_status
 
-zenigame = Pokemon.new("ゼニガメ",Type::WATER,100,30)
+zenigame = Pokemon.new(name: "ゼニガメ", type: Type::WATER, hp: 100, atk: 30)
 zenigame.display_status
 
-fushigidane = Pokemon.new("フシギダネ",Type::GRASS,100,30)
+fushigidane = Pokemon.new(name: "フシギダネ", type: Type::GRASS, hp: 100, atk: 30)
 fushigidane.display_status
 
-pippi = Pokemon.new("ピッピ",Type::NORMAL,100,30)
+pippi = Pokemon.new(name: "ピッピ", type: Type::NORMAL, hp: 100, atk: 30)
 pippi.display_status
 
 hitokage.attack zenigame
