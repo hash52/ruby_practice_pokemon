@@ -1,13 +1,24 @@
 module Type
-    NORMAL = :ノーマル
-    FIRE = :ほのお
-    GRASS = :くさ
-    WATER = :みず
+    NORMAL = 0
+    FIRE = 1
+    GRASS = 2
+    WATER = 3
 
     module Compatibility
         SUPER_EFFECTIVE = {ratio: 2, message: :こうかはばつぐんだ！ }
         NORMAL = {ratio: 1, message: nil }
         NOT_VERY_EFFECTIVE = {ratio: 0.5, message: :こうかはいまひとつのようだ }
+    end
+
+    NAMES = {
+        NORMAL => :ノーマル,
+        FIRE => :ほのお,
+        GRASS => :くさ,
+        WATER => :みず
+    }
+
+    def type_name
+        NAMES[self.type]
     end
 
     def compatibility_to diffender_type

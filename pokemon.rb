@@ -2,22 +2,25 @@ require './type'
 
 class Pokemon
     include Type
+
     attr_accessor :name, :atk
-    attr_reader :type
+    attr_reader :type, :moves
     
-    def initialize name:,type:,hp:,atk:
+    def initialize name:,type:,hp:,atk:,moves:
         @name = name
         @type = type
         self.hp = hp
         @atk = atk #攻撃力
+        self.moves = moves #技
     end
     
-    def attack teki
-        p "attack!"
-        compatibility = self.compatibility_to(teki.type)
-        teki.hp = teki.hp - @atk * compatibility[:ratio]
+    def attack move_num, teki
+        move = moves[move_num]
+        p "#{name}の #{move.name}"
+        compatibility = move.compatibility_to(teki.type)
+        teki.hp = teki.hp - move.damage * compatibility[:ratio]
         if compatibility[:message]
-            p "#{compatibility[:message]}(#{@name}=>#{teki.name})"
+            p "#{compatibility[:message]}(#{move.name}=>#{teki.name})"
         end
         if teki.hp <= 0
             p "#{teki.name} はたおれた"
@@ -25,7 +28,7 @@ class Pokemon
     end
     
     def display_status
-        p "#{@name}(#{self.type}) HP:#{@hp}"
+        p "#{@name}(#{self.type_name}) HP:#{@hp}"
     end
     
     def hp= hp
@@ -33,6 +36,15 @@ class Pokemon
             @hp = hp.floor #小数点以下切り捨て
         else
             @hp = 0
+        end
+    end
+
+    def moves= moves
+        max_moves_size = 4
+        if moves.size > max_moves_size
+            @moves = moves.first max_moves_size
+        else
+            @moves = moves
         end
     end
     
