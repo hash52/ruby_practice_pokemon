@@ -25,7 +25,7 @@ class Pokemon
     end
     
     def display_status
-        p "#{@name}(#{self.type_name}) HP:#{@hp}"
+        p "#{@name}(#{self.type}) HP:#{@hp}"
     end
     
     def hp= hp
