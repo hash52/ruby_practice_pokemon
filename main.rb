@@ -2,11 +2,9 @@ require './pokemon'
 require './type'
 require './move'
 
-t = Thread.new do
-    # 事前に 'brew install mpg123' されていること前提
-    #system("mpg123 -q assets/pokemon_battle.mp3")
-end
 
+# https://stackoverflow.com/questions/42288146/running-afplay-in-mac-sh-well-running-rest-of-script
+system "afplay assets/pokemon_battle.mp3 &>/dev/null &"
 
 hitokage = Pokemon.new(
     name: "ヒトカゲ", 
@@ -31,13 +29,15 @@ hitokage.attack 1, zenigame
 zenigame.display_status
 
 
-
 loop do
     finish_letter = "c"
     puts "#{finish_letter}を入力で終了"
     input = gets.chomp
-    puts input
     break if input == finish_letter
 end
-system "pkill mpg123"
-t.join
+
+
+system "pkill afplay"
+
+
+
