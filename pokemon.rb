@@ -13,7 +13,12 @@ class Pokemon
     end
     
     def attack teki
-        teki.hp = teki.hp - @atk * self.damage_multiplier_to(teki.type)
+        p "attack!"
+        compatibility = self.compatibility_to(teki.type)
+        teki.hp = teki.hp - @atk * compatibility[:ratio]
+        if compatibility[:message]
+            p "#{compatibility[:message]}(#{@name}=>#{teki.name})"
+        end
         if teki.hp <= 0
             p "#{teki.name} はたおれた"
         end

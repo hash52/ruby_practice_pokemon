@@ -4,10 +4,10 @@ module Type
     GRASS = 2
     WATER = 3
 
-    module DamageRate
-        SUPER_EFFECTIVE = 2
-        NORMAL = 1
-        NOT_VERY_EFFECTIVE = 0.5
+    module Compatibility
+        SUPER_EFFECTIVE = {ratio: 2, message: :こうかはばつぐんだ！ }
+        NORMAL = {ratio: 1, message: nil }
+        NOT_VERY_EFFECTIVE = {ratio: 0.5, message: :こうかはいまひとつのようだ }
     end
 
     NAMES = {
@@ -21,35 +21,35 @@ module Type
         NAMES[self.type]
     end
 
-    def damage_multiplier_to diffender_type
+    def compatibility_to diffender_type
         case self.type
         when NORMAL
             case diffender_type
-            when NORMAL ; DamageRate::NORMAL
-            when FIRE ; DamageRate::NORMAL
-            when GRASS ; DamageRate::NORMAL
-            when WATER ; DamageRate::NORMAL
+            when NORMAL ; Compatibility::NORMAL
+            when FIRE ; Compatibility::NORMAL
+            when GRASS ; Compatibility::NORMAL
+            when WATER ; Compatibility::NORMAL
             end
         when FIRE
             case diffender_type
-            when NORMAL ; DamageRate::NORMAL
-            when FIRE ; DamageRate::NOT_VERY_EFFECTIVE
-            when GRASS ; DamageRate::SUPER_EFFECTIVE
-            when WATER ; DamageRate::NOT_VERY_EFFECTIVE
+            when NORMAL ; Compatibility::NORMAL
+            when FIRE ; Compatibility::NOT_VERY_EFFECTIVE
+            when GRASS ; Compatibility::SUPER_EFFECTIVE
+            when WATER ; Compatibility::NOT_VERY_EFFECTIVE
             end
         when GRASS
             case diffender_type
-            when NORMAL ; DamageRate::NORMAL
-            when FIRE ; DamageRate::NOT_VERY_EFFECTIVE
-            when GRASS ; DamageRate::NOT_VERY_EFFECTIVE
-            when WATER ;DamageRate::SUPER_EFFECTIVE
+            when NORMAL ; Compatibility::NORMAL
+            when FIRE ; Compatibility::NOT_VERY_EFFECTIVE
+            when GRASS ; Compatibility::NOT_VERY_EFFECTIVE
+            when WATER ;Compatibility::SUPER_EFFECTIVE
             end
         when WATER
             case diffender_type
-            when NORMAL ; DamageRate::NORMAL
-            when FIRE ; DamageRate::SUPER_EFFECTIVE
-            when GRASS ; DamageRate::NOT_VERY_EFFECTIVE
-            when WATER ; DamageRate::NOT_VERY_EFFECTIVE
+            when NORMAL ; Compatibility::NORMAL
+            when FIRE ; Compatibility::SUPER_EFFECTIVE
+            when GRASS ; Compatibility::NOT_VERY_EFFECTIVE
+            when WATER ; Compatibility::NOT_VERY_EFFECTIVE
             end
         end
     end

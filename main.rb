@@ -24,3 +24,6 @@ hitokage.display_status
 
 zenigame.attack hitokage
 hitokage.display_status
+
+pippi.attack fushigidane
+fushigidane.display_status
