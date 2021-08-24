@@ -8,7 +8,7 @@ require './battle'
 poke1 = Pokemon.new(
     name: "ヒトカゲ", 
     type: Type::FIRE, 
-    hp: 70, 
+    hp: 100, 
     atk: 30,
     moves: [Move.find(1), Move.find(2)]
 )
@@ -22,8 +22,8 @@ poke2 = Pokemon.new(
 )
 
 battle = Battle.new(
-    my_poke: poke1,
-    teki_poke: poke2,
+    my_poke: poke2,
+    teki_poke: poke1,
     genre: Battle::COMMON #選曲可能
 )
 

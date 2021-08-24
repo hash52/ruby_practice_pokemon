@@ -26,6 +26,9 @@ class Battle
         end
         if(@teki_poke.is_fainting?)
             View.fainted @teki_poke
+            stop_bgm
+            start_fanfare
+            sleep 15
         end
         stop_bgm
     end
@@ -66,6 +69,10 @@ class Battle
     private
     def start_bgm
         system "afplay #{@bgm} &>/dev/null &"
+    end
+
+    def start_fanfare
+        system "afplay assets/winning_fanfare.mp3 &>/dev/null &"
     end
 
     def stop_bgm
