@@ -26,7 +26,7 @@ module View
 
     def attack_result poke, compatibility
         sleep 1
-        output_str = "#{poke.name}の #{poke.used_last_move.name}\n"
+        output_str = "#{poke.name}の #{poke.last_attack_move.name}(dmg: #{poke.last_attack_damage})\n"
         output_str += "#{compatibility[:message]}"
         display_line_by_line output_str
     end
