@@ -27,10 +27,6 @@ class Pokemon
         end
     end
     
-    def display_status
-        p "#{@name}(#{self.type_name}) HP:#{@hp}"
-    end
-    
     def hp= hp
         if hp > 0
             @hp = hp.floor #小数点以下切り捨て
