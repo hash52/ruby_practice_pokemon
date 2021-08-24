@@ -3,7 +3,7 @@ require './type'
 class Pokemon
     include Type
 
-    attr_reader :name, :type, :lv, :atk, :def, :moves, :last_attack_move, :last_attack_damage
+    attr_reader :name, :type, :lv, :atk, :def, :moves, :last_attack_move, :last_attack_damage, :last_attack_compatibility
     
     def initialize name:,type:,hp:,atk:,df:,moves:
         @name = name
@@ -17,12 +17,10 @@ class Pokemon
     
     def attack move_num, target
         move = moves[move_num]
-        compatibility = move.compatibility_to(target.type)
-        damage = (calc_damage(move, target) * compatibility[:ratio]).floor
-        target.hp -= damage
+        @last_attack_compatibility = move.compatibility_to(target.type)
         @last_attack_move = move #直近に繰り出した技に影響される技　例、オウムがえし
-        @last_attack_damage = damage #直近与えたダメージに影響される技　例、カウンター
-        return compatibility
+        @last_attack_damage = (calc_damage(move, target) * @last_attack_compatibility[:ratio]).floor #直近与えたダメージに影響される技　例、カウンター
+        target.hp -= @last_attack_damage
     end
 
     def ramdom_attack target

@@ -46,8 +46,8 @@ class Battle
         input = STDIN.gets.chomp.to_i
         if (1..@my_poke.moves.length).cover? input
             move_num = input - 1
-            compatibility = @my_poke.attack move_num, @teki_poke
-            View.attack_result @my_poke, compatibility
+            @my_poke.attack move_num, @teki_poke
+            View.attack_result @my_poke
         else
             View.input_again
             my_turn
@@ -55,7 +55,7 @@ class Battle
     end
 
     def teki_turn
-        compatibility = @teki_poke.ramdom_attack @my_poke
-        View.attack_result @teki_poke, compatibility
+        @teki_poke.ramdom_attack @my_poke
+        View.attack_result @teki_poke
     end
 end
