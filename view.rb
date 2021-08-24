@@ -1,40 +1,56 @@
 module View
-    def status poke
-        puts "#{poke.name}(#{poke.type_name}) HP:#{poke.hp}"
+    def battle_status my_poke:,teki_poke:
+        output_str = "自分：#{my_poke.name}(#{my_poke.type_name}) HP:#{my_poke.hp}\n"
+        output_str += "相手：#{teki_poke.name}(#{teki_poke.type_name}) HP:#{teki_poke.hp}"
+        display output_str
     end
 
     def moves poke
-        output_str = ""
+        output_str = "-----------------------\n"
         poke.moves.each_with_index do |move, i|
             output_str += "#{i+1}:#{move.name} "
+            if i % 2 == 0 || move == poke.moves.last
+                output_str += "\n"
+            end
         end
-        puts output_str
+        output_str += "-----------------------\n"
+        output_str += "わざ ばんごう で こうげき！"
+        display output_str
     end
 
-    def attack poke
-        puts "#{poke.name}の #{poke.used_last_move.name}"
-        br
+    def attack_result poke, compatibility
+        wait
+        output_str = "#{poke.name}の #{poke.used_last_move.name}\n"
+        output_str += "#{compatibility[:message]}"
+        display_line_by_line output_str
     end
 
     def fainted poke
-        puts "#{poke.name}はたおれた"
-        br
-    end
-
-    def message obj
-        puts obj[:message]
-        br
+        display "#{poke.name}はたおれた"
     end
 
     def input_again
-        p "無効な入力値: [わざの番号]を入力してください"
-        br
+        sleep(1)
+        display "無効な入力値: [わざの番号(半角)]を入力してください"
     end
 
-    def br
-        sleep 1
+    def display message
+        puts message
+        wait
+    end
+
+    def display_line_by_line message
+        message.split(/\R/).each do |s|
+            puts s
+            sleep(0.5)
+        end
+        wait
+    end
+
+    def wait
         puts "\n"
+        sleep(1)
     end
 
-    module_function :status, :moves, :attack, :fainted, :message, :input_again, :br
+    module_function :battle_status, :moves, :attack_result, :fainted, :input_again, :display, :display_line_by_line, :wait
 end

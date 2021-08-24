@@ -1,8 +1,10 @@
 require './view'
+require './music_player'
 
 class Battle
     COMMON = 1
     GYM_LEADER = 2
+    WINNING_FANFARE = "winning_fanfare.mp3"
 
     def initialize my_poke:,teki_poke:,genre:
         @my_poke = my_poke
@@ -10,48 +12,42 @@ class Battle
         @genre = genre
         case @genre
         when COMMON
-            @bgm = "assets/pokemon_battle.mp3"
+            @bgm = "pokemon_battle.mp3"
         when GYM_LEADER
-            @bgm = "assets/pokemon_gym_leader.mp3"
+            @bgm = "pokemon_gym_leader.mp3"
         end
     end
 
     def start
-        start_bgm
+        MusicPlayer.play @bgm
+        sleep 3
+        View.display "あ！ やせいの #{@teki_poke.name} が あらわれた"
     end
 
     def end
-        if(@my_poke.is_fainting?)
+        if @my_poke.is_fainting?
             View.fainted @my_poke
         end
-        if(@teki_poke.is_fainting?)
+        if @teki_poke.is_fainting?
             View.fainted @teki_poke
-            stop_bgm
-            start_fanfare
+            MusicPlayer.change WINNING_FANFARE
             sleep 15
         end
-        stop_bgm
+        MusicPlayer.stop
     end
 
     def is_end?
         @my_poke.is_fainting? || @teki_poke.is_fainting?
     end
 
-    def display_status
-        View.status @my_poke
-        View.status @teki_poke
-    end
-
     def my_turn
+        View.battle_status my_poke: @my_poke, teki_poke: @teki_poke
         View.moves @my_poke
-        input = gets.chomp.to_i
+        input = STDIN.gets.chomp.to_i
         if (1..@my_poke.moves.length).cover? input
             move_num = input - 1
             compatibility = @my_poke.attack move_num, @teki_poke
-            View.attack @my_poke
-            if compatibility[:message]
-                View.message compatibility
-            end
+            View.attack_result @my_poke, compatibility
         else
             View.input_again
             my_turn
@@ -60,22 +56,6 @@ class Battle
 
     def teki_turn
         compatibility = @teki_poke.ramdom_attack @my_poke
-        View.attack @teki_poke
-        if compatibility[:message]
-            View.message compatibility
-        end
-    end
-
-    private
-    def start_bgm
-        system "afplay #{@bgm} &>/dev/null &"
-    end
-
-    def start_fanfare
-        system "afplay assets/winning_fanfare.mp3 &>/dev/null &"
-    end
-
-    def stop_bgm
-        system "pkill afplay"
+        View.attack_result @teki_poke, compatibility
     end
 end

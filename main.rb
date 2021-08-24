@@ -1,7 +1,6 @@
 require './pokemon'
 require './type'
 require './move'
-require './view'
 require './battle'
 
 
@@ -30,7 +29,6 @@ battle = Battle.new(
 begin
     battle.start
     loop do
-        battle.display_status
         battle.my_turn
         break if battle.is_end?
         battle.teki_turn
