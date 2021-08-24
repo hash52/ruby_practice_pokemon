@@ -4,18 +4,19 @@ require './music_player'
 class Battle
     COMMON = 1
     GYM_LEADER = 2
+
     WINNING_FANFARE = "winning_fanfare.mp3"
+
+    BATTLE_BGMS = {
+        COMMON => "pokemon_battle.mp3",
+        GYM_LEADER => "pokemon_gym_leader.mp3"
+    }
 
     def initialize my_poke:,teki_poke:,genre:
         @my_poke = my_poke
         @teki_poke = teki_poke
         @genre = genre
-        case @genre
-        when COMMON
-            @bgm = "pokemon_battle.mp3"
-        when GYM_LEADER
-            @bgm = "pokemon_gym_leader.mp3"
-        end
+        @bgm = BATTLE_BGMS[@genre]
     end
 
     def start
