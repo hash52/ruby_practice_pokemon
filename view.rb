@@ -1,6 +1,12 @@
 module View
+    def encount poke
+        sleep 3
+        display "あ！ やせいの #{poke.name} が あらわれた"
+    end
+
     def battle_status my_poke:,teki_poke:
-        output_str = "自分：#{my_poke.name}(#{my_poke.type_name}) HP:#{my_poke.hp}\n"
+        output_str = "\n"
+        output_str += "自分：#{my_poke.name}(#{my_poke.type_name}) HP:#{my_poke.hp}\n"
         output_str += "相手：#{teki_poke.name}(#{teki_poke.type_name}) HP:#{teki_poke.hp}"
         display output_str
     end
@@ -19,7 +25,7 @@ module View
     end
 
     def attack_result poke, compatibility
-        wait
+        sleep 1
         output_str = "#{poke.name}の #{poke.used_last_move.name}\n"
         output_str += "#{compatibility[:message]}"
         display_line_by_line output_str
@@ -30,7 +36,7 @@ module View
     end
 
     def input_again
-        sleep(1)
+        sleep 1
         display "無効な入力値: [わざの番号(半角)]を入力してください"
     end
 
@@ -52,5 +58,5 @@ module View
         sleep(1)
     end
 
-    module_function :battle_status, :moves, :attack_result, :fainted, :input_again, :display, :display_line_by_line, :wait
+    module_function :encount, :battle_status, :moves, :attack_result, :fainted, :input_again, :display, :display_line_by_line, :wait
 end

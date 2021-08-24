@@ -21,8 +21,7 @@ class Battle
 
     def start
         MusicPlayer.play @bgm
-        sleep 3
-        View.display "あ！ やせいの #{@teki_poke.name} が あらわれた"
+        View.encount @teki_poke
     end
 
     def end
