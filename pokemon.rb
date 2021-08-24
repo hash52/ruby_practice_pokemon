@@ -4,7 +4,7 @@ class Pokemon
     include Type
 
     attr_accessor :name, :atk
-    attr_reader :type, :moves
+    attr_reader :type, :moves, :used_last_move
     
     def initialize name:,type:,hp:,atk:,moves:
         @name = name
@@ -14,17 +14,21 @@ class Pokemon
         self.moves = moves #技
     end
     
-    def attack move_num, teki
+    def attack move_num, target
         move = moves[move_num]
-        p "#{name}の #{move.name}"
-        compatibility = move.compatibility_to(teki.type)
-        teki.hp = teki.hp - move.damage * compatibility[:ratio]
-        if compatibility[:message]
-            p "#{compatibility[:message]}(#{move.name}=>#{teki.name})"
-        end
-        if teki.hp <= 0
-            p "#{teki.name} はたおれた"
-        end
+        compatibility = move.compatibility_to(target.type)
+        target.hp = target.hp - move.damage * compatibility[:ratio]
+        @used_last_move = move
+        return compatibility
+    end
+
+    def ramdom_attack target
+        attack rand(0..(moves.length-1)), target
+    end
+
+    #ひんし
+    def is_fainting?
+        hp == 0
     end
     
     def hp= hp
