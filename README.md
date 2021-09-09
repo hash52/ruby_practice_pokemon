@@ -29,7 +29,8 @@ $ git clone https://github.com/hash52/ruby_practice_pokemon.git
 
 ４，実行
 ```
-$ ruby ruby_practice_pokemon/main.rb
+$ cd ruby_practice_pokemon
+$ ruby main.rb
 ```
 
 音楽が再生され、ターミナルでポケモンバトルが始まればOK
